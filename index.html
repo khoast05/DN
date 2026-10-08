@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF OB55 Sensitivity</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#080b12;
+    color:white;
+}
+
+.app{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:auto;
+    padding:18px;
+    background:linear-gradient(180deg,#101624,#07090e);
+}
+
+.logo{
+    text-align:center;
+    font-size:26px;
+    font-weight:800;
+    margin:10px 0 5px;
+}
+
+.logo span{
+    color:#ffb300;
+}
+
+.version{
+    text-align:center;
+    color:#9da5b4;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+.card{
+    background:#151b28;
+    border:1px solid #252d3d;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 8px 25px #0005;
+}
+
+.card h2{
+    font-size:17px;
+    margin-bottom:14px;
+}
+
+select{
+    width:100%;
+    padding:14px;
+    border:0;
+    outline:none;
+    border-radius:12px;
+    background:#0d111a;
+    color:white;
+    font-size:15px;
+}
+
+.setting{
+    margin:18px 0;
+}
+
+.setting-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.value{
+    color:#ffb300;
+    font-weight:bold;
+}
+
+input[type=range]{
+    width:100%;
+    accent-color:#ffb300;
+}
+
+.generate{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(90deg,#ff9800,#ffc107);
+    color:#111;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.result{
+    display:none;
+}
+
+.result pre{
+    background:#090c12;
+    padding:14px;
+    border-radius:12px;
+    overflow:auto;
+    color:#dce3ef;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.copy{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:1px solid #343d50;
+    border-radius:10px;
+    background:#1b2230;
+    color:white;
+}
+
+.footer{
+    text-align:center;
+    color:#687286;
+    font-size:12px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="logo">
+        FF <span>OB55</span>
+    </div>
+
+    <div class="version">
+        SENSITIVITY GENERATOR
+    </div>
+
+    <div class="card">
+        <h2>📱 Chọn dòng máy</h2>
+
+        <select id="device">
+            <option>iPhone</option>
+            <option>Samsung</option>
+            <option>OPPO</option>
+            <option>Vivo</option>
+            <option>Xiaomi</option>
+            <option>Realme</option>
+            <option>Huawei</option>
+            <option>Nokia</option>
+            <option>Khác</option>
+        </select>
+    </div>
+
+    <div class="card">
+
+        <h2>🎯 Độ nhạy</h2>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>Tổng quan</span>
+                <span class="value" id="v1">190</span>
+            </div>
+            <input type="range" min="0" max="200" value="190"
+                   oninput="v1.innerText=this.value">
+        </div>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>Red Dot</span>
+                <span class="value" id="v2">185</span>
+            </div>
+            <input type="range" min="0" max="200" value="185"
+                   oninput="v2.innerText=this.value">
+        </div>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>2X Scope</span>
+                <span class="value" id="v3">175</span>
+            </div>
+            <input type="range" min="0" max="200" value="175"
+                   oninput="v3.innerText=this.value">
+        </div>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>4X Scope</span>
+                <span class="value" id="v4">165</span>
+            </div>
+            <input type="range" min="0" max="200" value="165"
+                   oninput="v4.innerText=this.value">
+        </div>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>AWM / Sniper</span>
+                <span class="value" id="v5">90</span>
+            </div>
+            <input type="range" min="0" max="200" value="90"
+                   oninput="v5.innerText=this.value">
+        </div>
+
+        <div class="setting">
+            <div class="setting-top">
+                <span>Nhìn xung quanh</span>
+                <span class="value" id="v6">170</span>
+            </div>
+            <input type="range" min="0" max="200" value="170"
+                   oninput="v6.innerText=this.value">
+        </div>
+
+        <button class="generate" onclick="generate()">
+            ⚡ TẠO ĐỘ NHẠY
+        </button>
+
+    </div>
+
+    <div class="card result" id="result">
+
+        <h2>🔥 Cấu hình của bạn</h2>
+
+        <pre id="output"></pre>
+
+        <button class="copy" onclick="copyConfig()">
+            📋 Sao chép cấu hình
+        </button>
+
+    </div>
+
+    <div class="footer">
+        FF OB55 • Mobile Sensitivity Generator
+    </div>
+
+</div>
+
+<script>
+function generate(){
+
+    let device =
+        document.getElementById("device").value;
+
+    let config =
+`FF OB55 SENSITIVITY
+
+Thiết bị: ${device}
+
+Tổng quan: ${v1.innerText}
+Red Dot: ${v2.innerText}
+2X Scope: ${v3.innerText}
+4X Scope: ${v4.innerText}
+AWM / Sniper: ${v5.innerText}
+Nhìn xung quanh: ${v6.innerText}`;
+
+    document.getElementById("output").innerText=config;
+    document.getElementById("result").style.display="block";
+}
+
+function copyConfig(){
+
+    navigator.clipboard.writeText(
+        document.getElementById("output").innerText
+    );
+
+    alert("Đã sao chép cấu hình!");
+}
+</script>
+
+</body>
+</html>
